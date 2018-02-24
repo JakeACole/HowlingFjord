@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#keys
+access_token.txt
+apikey.txt
