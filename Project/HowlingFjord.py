@@ -1,7 +1,6 @@
 # Project Howling Fjord
-# Project Description :
 # Authors: Jake and Iliya
-# Cool Stuff
+# A World of Warcraft Mythic Plus Analytics Tool
 
 import requests
 import json
@@ -12,11 +11,13 @@ class Server:
         self.access_token = ''
         self.api_key = ''
 
+        # urls for query
         self.realm_index_url = ''
         self.realm_url = ''
         self.mythic_leaderboard_index_url = ''
         self.mythic_leaderboard_dungeon_url = ''
 
+        # parsed data
         self.realm_slug = ''
         self.realm_id = ''
         self.dungeon_id = ''
@@ -93,20 +94,28 @@ def import_key(api_key_file):
 
 if __name__ == '__main__':
     _serverInstance = Server
-    _serverInstance.apikey = import_key("../ApiKeys/apikey.txt")
-    _serverInstance.accessToken = import_key("../ApiKeys/access_token.txt")
+    _serverInstance.api_key = import_key("../ApiKeys/apikey.txt")
+    _serverInstance.access_token = import_key("../ApiKeys/access_token.txt")
     _serverInstance.locale = "us"
 
     _realm_index_json = _serverInstance.get_realm_index(_serverInstance)
 
+    print (_realm_index_json)
+
     #parse realm index and get the realm_slug, you need to set _serverInstance.realm_slug
 
-    # Set these
-    # _serverInstance.realm_slug
-    # _serverInstance.realm_id
-    # _serverInstance.dungeon_id
-    # _serverInstance.period
+    # Set this
+    _serverInstance.realm_slug = ''
 
     _realm__json = _serverInstance.get_realm(_serverInstance)
+
+    # Set this
+    _serverInstance.realm_id = ''
+
     _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
+
+    # Set these
+    _serverInstance.dungeon_id = ''
+    _serverInstance.period = ''
+
     _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
