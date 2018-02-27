@@ -1,65 +1,112 @@
+# Project Howling Fjord
+# Project Description :
+# Authors: Jake and Iliya
+# Cool Stuff
+
 import requests
 import json
 
 class Server:
-    def __init__(self, locale, realmId):
-        self.locale = locale
-        self.realmId = "58" #temp #realmId
-        self.accessToken
-        self.apikey
+    def __init__(self):
+        self.locale = ''
+        self.access_token = ''
+        self.api_key = ''
 
-    def GetRealmId(self, realm_name):
-        url = "https://" + self.locale + \
-              ".api.battle.net/data/wow/connected-realm/" + \
-              "?namespace=dynamic-us&locale=en_US&access_token=" + self.accessToken
+        self.realm_index_url = ''
+        self.realm_url = ''
+        self.mythic_leaderboard_index_url = ''
+        self.mythic_leaderboard_dungeon_url = ''
+
+        self.realm_slug = ''
+        self.realm_id = ''
+        self.dungeon_id = ''
+        self.period = ''
+
+    def get_realm_index(self):
+        #https://us.api.battle.net/data/wow/realm/?namespace=dynamic-us&locale=en_US&access_token= + self.accessToken
+        self.realm_index_url = "https://" + self.locale + \
+              ".api.battle.net/data/wow/realm/" + \
+              "?namespace=dynamic-us&locale=en_US&access_token=" + self.access_token
+
+        print (self.realm_index_url + "\n")
+
+        _data = requests.get(self.realm_index_url).text
+
+        #print (data)
+
+        return _data
+
+    def get_realm(self):
+        #https://us.api.battle.net/data/wow/realm/magtheridon?namespace=dynamic-us&locale=en_US&access_token + self.access_token
+
+        self.realm_url = "https://" + self.locale + \
+              ".api.battle.net/data/wow/realm//" + self.realm_slug + \
+              "?namespace=dynamic-us&locale=en_US&access_token=" + self.access_token
+
+        print (self.realm_url + "\n")
+
+        _data = requests.get(self.realm_url).text
+
+        #print (data)
+
+        return _data
+
+    def get_mythic_leaderboard_index(self):
+        #https://us.api.battle.net/data/wow/connected-realm/78/mythic-leaderboard/?namespace=dynamic-us&locale=en_US&access_token= + self.access_token
+
+        self.mythic_leaderboard_index_url = "https://" + self.locale + \
+              ".api.battle.net/data/wow/connected-realm/" + self.realm_id + \
+              "/mythic-leaderboard/?namespace=dynamic-us&locale=en_US&access_token=" + self.access_token
 
         #https://us.api.battle.net/data/wow/connected-realm/?namespace=dynamic-us&locale=en_US&access_token=access_token
 
-        print (url + "\n")
+        print (self.mythic_leaderboard_index_url + "\n")
 
-        jsonStuff = requests.get(url).text
+        _data = requests.get(self.mythic_leaderboard_index_url).text
 
-        print (jsonStuff)
+        #print (data)
 
-        #some parsing function to find realm_name in get_realm_id
+        return _data
 
-        #return requests.get(url).text
+    def get_mythic_leaderboard_dungeon(self):
+        #https://us.api.battle.net/data/wow/connected-realm/78/mythic-leaderboard/197/period/630?namespace=dynamic-us&locale=en_US&access_token= + self.access_token
 
+        self.mythic_leaderboard_dungeon_url = "https://" + self.locale + \
+              ".api.battle.net/data/wow/connected-realm/" + self.realm_id + \
+              "/mythic-leaderboard/" + self.dungeon_id + "/period/" + self.period + "?namespace=dynamic-us&locale=en_US&access_token=" + self.access_token
 
-    def GetCurrentLeaderboards(self):
-        """
-        Get the list of all current leader boards for each dungeon
+        #https://us.api.battle.net/data/wow/connected-realm/?namespace=dynamic-us&locale=en_US&access_token=access_token
 
-        :return: json file with link to each leaderboard for the server
-        """
-        #url = "https://" + self.locale + \
-        #      ".api.battle.net/data/wow/connected-realm/" + self.connected_realm_id + \
-        #      "/mythic-leaderboard/?namespace=dynamic-us&locale=en_US&access_token=" + apikey
+        print (self.mythic_leaderboard_dungeon_url + "\n")
 
-        url = "https://" + self.locale + \
-              ".api.battle.net/data/wow/connected-realm/" + self.realmId + \
-              "/mythic-leaderboard/?namespace=dynamic-us&locale=en_US&access_token=" + "74r5yts3vqkedngqztntzecj" #self.access_token
+        _data = requests.get(self.mythic_leaderboard_dungeon_url).text
 
-        #url = "https://us.api.battle.net/data/wow/connected-realm/1171/mythic-leaderboard/?namespace=dynamic-us&locale=en_US&apikey=" + apikey
+        #print (data)
 
-        print (url)
-        return requests.get(url).text
+        return _data
 
-def ImportKey(apiKeyFile):
-    f = open(apiKeyFile, "r")
-    apikey = f.read()
+def import_key(api_key_file):
+    f = open(api_key_file, "r")
+    _api_key = f.read()
     #print(apikey)
-    return apikey
+    return _api_key
 
 if __name__ == '__main__':
-    serverInstance = Server
-    serverInstance.apikey = ImportKey("../ApiKeys/apikey.txt")
-    serverInstance.accessToken = ImportKey("../ApiKeys/access_token.txt")
-    serverInstance.locale = "us"
-    rcvdRealmId = serverInstance.GetRealmId(serverInstance, "Mal'Ganis")
-    print(rcvdRealmId)
+    _serverInstance = Server
+    _serverInstance.apikey = import_key("../ApiKeys/apikey.txt")
+    _serverInstance.accessToken = import_key("../ApiKeys/access_token.txt")
+    _serverInstance.locale = "us"
 
-    #serverInstance.realmId = rcvdRealmId
-    #apiRequest = serverInstance.GetCurrentLeaderboards(serverInstance)
+    _realm_index_json = _serverInstance.get_realm_index(_serverInstance)
 
-    #print(apiRequest)
+    #parse realm index and get the realm_slug, you need to set _serverInstance.realm_slug
+
+    # Set these
+    # _serverInstance.realm_slug
+    # _serverInstance.realm_id
+    # _serverInstance.dungeon_id
+    # _serverInstance.period
+
+    _realm__json = _serverInstance.get_realm(_serverInstance)
+    _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
+    _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
