@@ -110,3 +110,5 @@ HowlingFjord.iml
 misc.xml
 modules.xml
 workspace.xml
+vcs.xml
+codeStyleSettings.xml
