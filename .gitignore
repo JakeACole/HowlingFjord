@@ -103,3 +103,10 @@ ENV/
 #keys
 access_token.txt
 apikey.txt
+
+#PyCharm stuff
+.name
+HowlingFjord.iml
+misc.xml
+modules.xml
+workspace.xml
