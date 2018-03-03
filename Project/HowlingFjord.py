@@ -4,14 +4,12 @@
 
 import requests
 import json
-import datetime
-import io
 
 class Server:
     def __init__(self):
         self.locale = ''
-        self.api_key = ''
         self.access_token = ''
+        self.api_key = ''
 
         # urls for query
         self.realm_index_url = ''
@@ -94,24 +92,6 @@ def import_key(api_key_file):
     #print(apikey)
     return _api_key
 
-def convert_epoch(epoch):
-    # divide by 1e3 for conversion to datetime
-    _converted_epoch = datetime.datetime.fromtimestamp(epoch / 1e3)
-
-    # format converted epoch to string format
-    _converted_epoch = _converted_epoch.strftime('%Y-%m-%d %H:%M:%S')
-
-    print (_converted_epoch)
-
-    return _converted_epoch
-
-def write_json(input_file, json_input):
-    with io.open(input_file, 'w', encoding='utf-8') as f:
-        #loads for json string, load for file or url
-        _parsed_json = json.loads(json_input)
-
-        f.write(json.dumps(_parsed_json, indent=4, sort_keys=True))
-
 if __name__ == '__main__':
     _serverInstance = Server
     _serverInstance.api_key = import_key("../ApiKeys/apikey.txt")
@@ -124,23 +104,12 @@ if __name__ == '__main__':
     out_file2 = open("dungeons.join", "w")
     out_file3 = open("classes.join", "w")
 
-    write_json("realm_index_json.txt", _realm_index_json)
-
-    _parsed_realm_index_json = json.loads(_realm_index_json)
-
-    print(_parsed_realm_index_json["realms"][50]["slug"])
-
     #parse realm index and get the realm_slug, you need to set _serverInstance.realm_slug
 
     # Set this
     _serverInstance.realm_slug = 'malganis'
-<<<<<<< HEAD
-=======
 
-    _realm_json = _serverInstance.get_realm(_serverInstance)
->>>>>>> d8eca519d200ba79d1b4f416641b6caaa618c7d5
-
-    write_json("realm_json.txt", _realm_json)
+    _realm__json = _serverInstance.get_realm(_serverInstance)
 
     x = json.loads(_realm__json)
 
@@ -153,7 +122,6 @@ if __name__ == '__main__':
 
 
     # Set this
-<<<<<<< HEAD
     _serverInstance.realm_id = '59'
 
     _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
@@ -164,28 +132,11 @@ if __name__ == '__main__':
 
 
 
-=======
-    _serverInstance.realm_id = '3684'
-
-    _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
-
-    write_json("mythic_leaderboard_index_json.txt", _mythic_leaderboard_index_json)
->>>>>>> d8eca519d200ba79d1b4f416641b6caaa618c7d5
 
     # Set these
-    _serverInstance.dungeon_id = '199'
-    _serverInstance.period = '632'
+    _serverInstance.dungeon_id = ''
+    _serverInstance.period = ''
 
-    _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
-
-    write_json("mythic_leaderboard_dungeon_json.txt", _mythic_leaderboard_dungeon_json)
-
-    _epoch = (1518533999000)
-
-<<<<<<< HEAD
     _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
 
     print(_mythic_leaderboard_dungeon_json)
-=======
-    _converted_timestamp = convert_epoch(_epoch)
->>>>>>> d8eca519d200ba79d1b4f416641b6caaa618c7d5
