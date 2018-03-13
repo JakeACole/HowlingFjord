@@ -112,3 +112,5 @@ modules.xml
 workspace.xml
 vcs.xml
 codeStyleSettings.xml
+*.xml
+*.iml
