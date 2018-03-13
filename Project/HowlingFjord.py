@@ -29,7 +29,7 @@ class Server:
               ".api.battle.net/data/wow/realm/" + \
               "?namespace=dynamic-us&locale=en_US&access_token=" + self.access_token
 
-        print (self.realm_index_url + "\n")
+        #print (self.realm_index_url + "\n")
 
         _data = requests.get(self.realm_index_url).text
 
@@ -61,7 +61,7 @@ class Server:
 
         #https://us.api.battle.net/data/wow/connected-realm/?namespace=dynamic-us&locale=en_US&access_token=access_token
 
-        print (self.mythic_leaderboard_index_url + "\n")
+        #print (self.mythic_leaderboard_index_url + "\n")
 
         _data = requests.get(self.mythic_leaderboard_index_url).text
 
@@ -78,7 +78,7 @@ class Server:
 
         #https://us.api.battle.net/data/wow/connected-realm/?namespace=dynamic-us&locale=en_US&access_token=access_token
 
-        print (self.mythic_leaderboard_dungeon_url + "\n")
+        #print (self.mythic_leaderboard_dungeon_url + "\n")
 
         _data = requests.get(self.mythic_leaderboard_dungeon_url).text
 
@@ -98,24 +98,45 @@ if __name__ == '__main__':
     _serverInstance.access_token = import_key("../ApiKeys/access_token.txt")
     _serverInstance.locale = "us"
 
-    _realm_index_json = _serverInstance.get_realm_index(_serverInstance)
+    #_realm_index_json = _serverInstance.get_realm_index(_serverInstance)
 
-    print (_realm_index_json)
+    out_file = open("realms.json","w")
+    out_file2 = open("dungeons.json", "w")
+    out_file3 = open("classes.json", "w")
 
     #parse realm index and get the realm_slug, you need to set _serverInstance.realm_slug
 
     # Set this
-    _serverInstance.realm_slug = ''
+    _serverInstance.realm_slug = 'malganis'
 
     _realm__json = _serverInstance.get_realm(_serverInstance)
 
+    x = json.loads(_realm__json)
+
+    json.dump(x, out_file,sort_keys = True,indent=4)
+
+    out_file.close
+
+    print(x['id'])
+
+
+
     # Set this
-    _serverInstance.realm_id = ''
+    _serverInstance.realm_id = '59'
 
     _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
+
+    dungeons = json.loads(_mythic_leaderboard_index_json)
+
+    json.dump(dungeons,out_file2, sort_keys = True,indent =4)
+
+
+
 
     # Set these
     _serverInstance.dungeon_id = ''
     _serverInstance.period = ''
 
     _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
+
+    print(_mythic_leaderboard_dungeon_json)
