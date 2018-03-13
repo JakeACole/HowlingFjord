@@ -5,6 +5,10 @@
 import requests
 import json
 
+class Test(object):
+    def __init__(self,data):
+        self.__dict__ = json.loads(data)
+
 class Server:
     def __init__(self):
         self.locale = ''
@@ -111,20 +115,24 @@ if __name__ == '__main__':
 
     _realm__json = _serverInstance.get_realm(_serverInstance)
 
-    x = json.loads(_realm__json)
+    realm = json.loads(_realm__json)
 
-    json.dump(x, out_file,sort_keys = True,indent=4)
+    json.dump(realm, out_file,sort_keys = True,indent=4)
 
     out_file.close
 
-    print(x['id'])
+    print(realm['id'])
 
+
+    test1 = Test(_realm__json)
+
+    x = test1.connected_realm['href']
 
 
     # Set this
-    _serverInstance.realm_id = '59'
+    #_serverInstance.realm_id = x
 
-    _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(_serverInstance)
+    _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(x)
 
     dungeons = json.loads(_mythic_leaderboard_index_json)
 
