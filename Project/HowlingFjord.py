@@ -128,6 +128,7 @@ if __name__ == '__main__':
 
     x = test1.connected_realm['href']
 
+    print(x)
 
     # Set this
     #_serverInstance.realm_id = x
