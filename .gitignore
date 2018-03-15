@@ -112,3 +112,12 @@ modules.xml
 workspace.xml
 vcs.xml
 codeStyleSettings.xml
+*.xml
+*.iml
+Project/*.json
+Project/.idea/.name
+Project/.idea/HowlingFjord.iml
+Project/.idea/misc.xml
+Project/.idea/modules.xml
+Project/.idea/workspace.xml
+
