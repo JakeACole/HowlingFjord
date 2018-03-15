@@ -123,29 +123,28 @@ if __name__ == '__main__':
 
     print(realm['id'])
 
-
-    test1 = Test(_realm__json)
-
-    x = test1.connected_realm['href']
-
-    print(x)
-
-    # Set this
-    #_serverInstance.realm_id = x
-
-    _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(x)
-
-    dungeons = json.loads(_mythic_leaderboard_index_json)
-
-    json.dump(dungeons,out_file2, sort_keys = True,indent =4)
-
-
-
-
-    # Set these
-    _serverInstance.dungeon_id = ''
-    _serverInstance.period = ''
-
-    _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
-
-    print(_mythic_leaderboard_dungeon_json)
+    # test1 = Test(_realm__json)
+    #
+    # x = test1.connected_realm['href']
+    #
+    # print(x)
+    #
+    # # Set this
+    # #_serverInstance.realm_id = x
+    #
+    # _mythic_leaderboard_index_json = _serverInstance.get_mythic_leaderboard_index(x)
+    #
+    # dungeons = json.loads(_mythic_leaderboard_index_json)
+    #
+    # json.dump(dungeons,out_file2, sort_keys = True,indent =4)
+    #
+    #
+    #
+    #
+    # # Set these
+    # _serverInstance.dungeon_id = ''
+    # _serverInstance.period = ''
+    #
+    # _mythic_leaderboard_dungeon_json = _serverInstance.get_mythic_leaderboard_dungeon(_serverInstance)
+    #
+    # print(_mythic_leaderboard_dungeon_json)
